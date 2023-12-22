@@ -2,9 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BtaApi.Domain.Configuration
+namespace BtaApi.Domain
 {
-    public static class Configuration
+    public static class DomainConfiguration
     {
         public static IServiceCollection AddDomain(this IServiceCollection services, IConfiguration configuration)
             => services

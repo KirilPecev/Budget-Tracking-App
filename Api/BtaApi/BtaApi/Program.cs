@@ -1,4 +1,4 @@
-using BtaApi.Domain.Configuration;
+using BtaApi.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 
