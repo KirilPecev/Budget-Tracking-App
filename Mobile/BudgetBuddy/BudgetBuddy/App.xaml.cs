@@ -1,4 +1,4 @@
-﻿namespace BudgetTrackingApp
+﻿namespace BudgetBuddy
 {
     public partial class App : Application
     {

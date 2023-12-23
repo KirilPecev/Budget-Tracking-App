@@ -2,7 +2,7 @@
 
 using UIKit;
 
-namespace BudgetTrackingApp
+namespace BudgetBuddy
 {
     public class Program
     {

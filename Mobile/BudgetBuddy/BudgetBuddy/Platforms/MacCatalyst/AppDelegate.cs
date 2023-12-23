@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace BudgetTrackingApp
+namespace BudgetBuddy
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

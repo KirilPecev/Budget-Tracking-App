@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace BudgetTrackingApp
+namespace BudgetBuddy
 {
     public static class MauiProgram
     {
