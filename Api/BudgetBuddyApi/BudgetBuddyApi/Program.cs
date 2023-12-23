@@ -1,4 +1,4 @@
-using BtaApi.Domain;
+using BudgetBuddyApi.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 

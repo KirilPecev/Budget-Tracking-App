@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BtaApi.Domain
+namespace BudgetBuddyApi.Domain
 {
     public static class DomainConfiguration
     {

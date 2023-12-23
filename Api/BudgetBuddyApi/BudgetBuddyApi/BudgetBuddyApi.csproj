@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BtaApi.Domain\BtaApi.Domain.csproj" />
+    <ProjectReference Include="..\BudgetBuddyApi.Domain\BudgetBuddyApi.Domain.csproj" />
   </ItemGroup>
 
 </Project>

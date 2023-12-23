@@ -9,17 +9,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["BtaApi/BtaApi.csproj", "BtaApi/"]
-RUN dotnet restore "./BtaApi/./BtaApi.csproj"
+COPY ["BudgetBuddyApi/BudgetBuddyApi.csproj", "BudgetBuddyApi/"]
+RUN dotnet restore "./BudgetBuddyApi/./BudgetBuddyApi.csproj"
 COPY . .
-WORKDIR "/src/BtaApi"
-RUN dotnet build "./BtaApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/BudgetBuddyApi"
+RUN dotnet build "./BudgetBuddyApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./BtaApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./BudgetBuddyApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "BtaApi.dll"]
+ENTRYPOINT ["dotnet", "BudgetBuddyApi.dll"]

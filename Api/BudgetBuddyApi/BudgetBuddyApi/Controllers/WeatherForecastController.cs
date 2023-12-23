@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace BtaApi.Controllers
+namespace BudgetBuddyApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
