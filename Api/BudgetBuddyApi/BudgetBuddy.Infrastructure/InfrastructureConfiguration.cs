@@ -5,7 +5,6 @@ using BudgetBuddy.Application.Common;
 using BudgetBuddy.Infrastructure.Identity;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,14 +14,19 @@ namespace BudgetBuddy.Domain
 {
     public static class InfrastructureConfiguration
     {
-        public static IServiceCollection AddDomain(this IServiceCollection services, IConfiguration configuration)
-        => services
-            .AddDbContext<BudgetBuddyDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+            => services
+                .AddDomain(configuration)
+                .AddIdentity(configuration);
+
+        private static IServiceCollection AddDomain(this IServiceCollection services, IConfiguration configuration)
+            => services
+                .AddDbContext<BudgetBuddyDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
         private static IServiceCollection AddIdentity(this IServiceCollection services, IConfiguration configuration)
         {
             services
-                .AddIdentity<IdentityUser, IdentityRole>(options =>
+                .AddIdentity<User, Role>(options =>
                 {
                     options.Password.RequiredLength = 6;
                     options.Password.RequireDigit = false;
