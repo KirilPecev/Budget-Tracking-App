@@ -28,8 +28,32 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence.Configurations
                 .IsRequired();
 
             builder
+                .Property(b => b.EndDate)
+                .IsRequired(false);
+
+            builder
                 .Property(b => b.TargetAmount)
                 .IsRequired();
+
+            builder
+                .Property(b => b.CurrentAmount)
+                .IsRequired(false);
+
+            builder
+                .Property(b => b.IsActive)
+                .IsRequired();
+
+            builder
+                .Property(b => b.IsShared)
+                .IsRequired();
+
+            builder
+                .Property(b => b.CreatedOn)
+                .IsRequired();
+
+            builder
+                .Property(b => b.LastUpdated)
+                .IsRequired(false);
         }
     }
 }

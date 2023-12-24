@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
-namespace BudgetBuddy.Domain
+namespace BudgetBuddy.Infrastructure
 {
     public static class InfrastructureConfiguration
     {
@@ -22,7 +22,9 @@ namespace BudgetBuddy.Domain
 
         private static IServiceCollection AddDomain(this IServiceCollection services, IConfiguration configuration)
             => services
-                .AddDbContext<BudgetBuddyDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                .AddDbContext<BudgetBuddyDbContext>(options => options
+                    .UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+                    b => b.MigrationsAssembly(typeof(BudgetBuddyDbContext).Assembly.FullName)));
 
         private static IServiceCollection AddIdentity(this IServiceCollection services, IConfiguration configuration)
         {

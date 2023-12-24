@@ -14,9 +14,9 @@ namespace BudgetBuddy.Domain.Models
 
         public DateTime? EndDate { get; }
 
-        public decimal TargetAmount { get; }
+        public double TargetAmount { get; }
 
-        public decimal CurrentAmount { get; }
+        public double? CurrentAmount { get; }
 
         public bool IsActive { get; }
 
@@ -30,7 +30,7 @@ namespace BudgetBuddy.Domain.Models
             string userId,
             string name,
             DateTime startDate,
-            decimal targetAmount)
+            double targetAmount)
         {
             this.Validate(userId, name, startDate, targetAmount);
 
@@ -44,7 +44,7 @@ namespace BudgetBuddy.Domain.Models
             this.CreatedOn = DateTime.UtcNow;
         }
 
-        private void Validate(string userId, string name, DateTime startDate, decimal targetAmount)
+        private void Validate(string userId, string name, DateTime startDate, double targetAmount)
         {
 
         }

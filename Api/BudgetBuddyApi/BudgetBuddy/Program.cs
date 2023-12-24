@@ -1,4 +1,4 @@
-using BudgetBuddy.Domain;
+using BudgetBuddy.Infrastructure;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
