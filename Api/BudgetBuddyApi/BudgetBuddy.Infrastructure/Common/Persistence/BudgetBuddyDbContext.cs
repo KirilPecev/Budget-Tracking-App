@@ -6,7 +6,7 @@ using BudgetBuddy.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace BudgetBuddy.Domain
+namespace BudgetBuddy.Infrastructure.Common.Persistence
 {
     public class BudgetBuddyDbContext : IdentityDbContext<User, Role, string>
     {

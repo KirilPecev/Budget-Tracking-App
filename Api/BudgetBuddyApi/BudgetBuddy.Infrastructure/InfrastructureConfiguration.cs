@@ -2,6 +2,7 @@
 
 using BudgetBuddy.Application;
 using BudgetBuddy.Application.Common;
+using BudgetBuddy.Infrastructure.Common.Persistence;
 using BudgetBuddy.Infrastructure.Identity;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
