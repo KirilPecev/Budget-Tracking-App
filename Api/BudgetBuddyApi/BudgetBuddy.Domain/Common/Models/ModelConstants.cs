@@ -33,5 +33,19 @@
             public const int MinDescriptionLength = 5;
             public const int MaxDescriptionLength = 1000;
         }
+
+        public class Currency
+        {
+            public const int MinNameLength = 3;
+            public const int MaxNameLength = 50;
+
+            public const int MinCodeLength = 3;
+            public const int MaxCodeLength = 3;
+        }
+
+        public class ExchangeRate
+        {
+            public const decimal MaxRateValue = decimal.MaxValue;
+        }
     }
 }

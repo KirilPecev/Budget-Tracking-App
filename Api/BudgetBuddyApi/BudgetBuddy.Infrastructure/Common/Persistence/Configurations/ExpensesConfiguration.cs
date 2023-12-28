@@ -15,8 +15,21 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence.Configurations
                 .HasKey(b => b.Id);
 
             builder
+                .HasOne(b => b.Budget)
+                .WithMany(b => b.Expenses)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
                 .Property(b => b.Amount)
                 .IsRequired();
+
+            builder
+                .HasOne(b => b.Currency)
+                .WithMany()
+                .HasForeignKey("CurrencyCode")
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .Property(b => b.TransactionDateTime)

@@ -11,9 +11,14 @@ namespace BudgetBuddy.Domain.Models
         private static readonly IEnumerable<ExpenseTypes> AllowedTypes
            = new ExpenseTypesData().GetData().Cast<ExpenseTypes>();
 
-        public int BudgetId { get; }
+        private static readonly IEnumerable<Currencies> AllowedCurrencies
+           = new CurrenciesData().GetData().Cast<Currencies>();
+
+        public Budgets Budget { get; } = default!;
 
         public decimal Amount { get; }
+
+        public Currencies Currency { get; } = default!;
 
         public DateTime TransactionDateTime { get; }
 
@@ -22,14 +27,18 @@ namespace BudgetBuddy.Domain.Models
         public string? Description { get; }
 
         internal Expenses(
+            Budgets budget,
             decimal amount,
+            Currencies currency,
             DateTime transactionDateTime,
             ExpenseTypes type,
             string? description = default)
         {
-            this.Validate(amount, transactionDateTime, type);
+            this.Validate(amount, currency, transactionDateTime, type);
 
+            this.Budget = budget;
             this.Amount = amount;
+            this.Currency = currency;
             this.TransactionDateTime = transactionDateTime;
             this.Type = type;
             this.Description = description;
@@ -49,9 +58,10 @@ namespace BudgetBuddy.Domain.Models
             this.Description = description;
         }
 
-        private void Validate(decimal amount, DateTime transactionDateTime, ExpenseTypes type)
+        private void Validate(decimal amount, Currencies currency, DateTime transactionDateTime, ExpenseTypes type)
         {
             this.ValidateAmount(amount);
+            this.ValidateCurrency(currency);
             this.ValidateTransactionDateTime(transactionDateTime);
             this.ValidateExpenseType(type);
         }
@@ -62,6 +72,17 @@ namespace BudgetBuddy.Domain.Models
         private void ValidateTransactionDateTime(DateTime transactionDateTime)
              => Guard.AgainstEmptyDate<InvalidExpenseException>(transactionDateTime, nameof(this.TransactionDateTime));
 
+        private void ValidateCurrency(Currencies currencies)
+        {
+            string? name = currencies?.Name;
+
+            if (AllowedCurrencies.Any(c => c.Name == name)) return;
+
+            string allowedNames = string.Join(", ", AllowedCurrencies.Select(c => $"'{c.Name}'"));
+
+            throw new InvalidExpenseException($"'{name}' is not a valid currency. Allowed values are: {allowedNames}.");
+        }
+
         private void ValidateExpenseType(ExpenseTypes expenseType)
         {
             string? name = expenseType?.Name;
@@ -70,7 +91,7 @@ namespace BudgetBuddy.Domain.Models
 
             string allowedNames = string.Join(", ", AllowedTypes.Select(c => $"'{c.Name}'"));
 
-            throw new InvalidExpenseException($"'{name}' is not a valid category. Allowed values are: {allowedNames}.");
+            throw new InvalidExpenseException($"'{name}' is not a valid type. Allowed values are: {allowedNames}.");
         }
     }
 }

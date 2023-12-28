@@ -40,6 +40,13 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence.Configurations
                 .IsRequired(false);
 
             builder
+                .HasOne(b => b.Currency)
+                .WithMany()
+                .HasForeignKey("CurrencyCode")
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
                 .Property(b => b.IsActive)
                 .IsRequired();
 
@@ -54,6 +61,10 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence.Configurations
             builder
                 .Property(b => b.LastUpdated)
                 .IsRequired(false);
+
+            builder
+                .HasMany(b => b.Expenses)
+                .WithOne(b => b.Budget);
         }
     }
 }

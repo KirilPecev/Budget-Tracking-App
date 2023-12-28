@@ -4,6 +4,7 @@ using BudgetBuddy.Infrastructure.Common.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BudgetBuddy.Infrastructure.Common.Persistence.Migrations
 {
     [DbContext(typeof(BudgetBuddyDbContext))]
-    partial class BudgetBuddyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231228162759_CurrenciesTable")]
+    partial class CurrenciesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,37 +101,6 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence.Migrations
                     b.ToTable("Currencies");
                 });
 
-            modelBuilder.Entity("BudgetBuddy.Domain.Models.ExchangeRates", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FromCurrencyCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(3)");
-
-                    b.Property<decimal>("Rate")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ToCurrencyCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(3)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FromCurrencyCode");
-
-                    b.HasIndex("ToCurrencyCode");
-
-                    b.ToTable("ExchangeRates");
-                });
-
             modelBuilder.Entity("BudgetBuddy.Domain.Models.ExpenseTypes", b =>
                 {
                     b.Property<int>("Id")
@@ -166,9 +138,6 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("BudgetId")
-                        .HasColumnType("int");
-
                     b.Property<string>("CurrencyCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(3)");
@@ -184,8 +153,6 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BudgetId");
 
                     b.HasIndex("CurrencyCode");
 
@@ -414,33 +381,8 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence.Migrations
                     b.Navigation("Currency");
                 });
 
-            modelBuilder.Entity("BudgetBuddy.Domain.Models.ExchangeRates", b =>
-                {
-                    b.HasOne("BudgetBuddy.Domain.Models.Currencies", "FromCurrency")
-                        .WithMany("ExchangeRates")
-                        .HasForeignKey("FromCurrencyCode")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("BudgetBuddy.Domain.Models.Currencies", "ToCurrency")
-                        .WithMany()
-                        .HasForeignKey("ToCurrencyCode")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("FromCurrency");
-
-                    b.Navigation("ToCurrency");
-                });
-
             modelBuilder.Entity("BudgetBuddy.Domain.Models.Expenses", b =>
                 {
-                    b.HasOne("BudgetBuddy.Domain.Models.Budgets", "Budget")
-                        .WithMany("Expenses")
-                        .HasForeignKey("BudgetId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("BudgetBuddy.Domain.Models.Currencies", "Currency")
                         .WithMany()
                         .HasForeignKey("CurrencyCode")
@@ -452,8 +394,6 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence.Migrations
                         .HasForeignKey("ExpenseTypeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Budget");
 
                     b.Navigation("Currency");
 
@@ -509,16 +449,6 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("BudgetBuddy.Domain.Models.Budgets", b =>
-                {
-                    b.Navigation("Expenses");
-                });
-
-            modelBuilder.Entity("BudgetBuddy.Domain.Models.Currencies", b =>
-                {
-                    b.Navigation("ExchangeRates");
                 });
 
             modelBuilder.Entity("BudgetBuddy.Infrastructure.Identity.User", b =>
