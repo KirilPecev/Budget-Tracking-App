@@ -2,6 +2,11 @@
 {
     public class ModelConstants
     {
+        public class Common
+        {
+            public const int Zero = 0;
+        }
+
         public class User
         {
             public const int MinEmailLength = 5;
@@ -15,8 +20,18 @@
         {
             public const int MinNameLength = 1;
             public const int MaxNameLength = 100;
-            public const int Zero = 0;
             public const decimal TargetAmountMaxValue = decimal.MaxValue;
+        }
+
+        public class Expense
+        {
+            public const int MinNameLength = 3;
+            public const int MaxNameLength = 50;
+
+            public const decimal MaxAmountValue = decimal.MaxValue;
+
+            public const int MinDescriptionLength = 5;
+            public const int MaxDescriptionLength = 1000;
         }
     }
 }

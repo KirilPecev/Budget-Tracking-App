@@ -14,6 +14,10 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence
 
         public DbSet<Budgets> Budgets { get; set; } = default!;
 
+        public DbSet<Expenses> Expenses { get; set; } = default!;
+
+        public DbSet<ExpenseTypes> ExpenseTypes { get; set; } = default!;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

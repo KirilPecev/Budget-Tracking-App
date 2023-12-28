@@ -2,6 +2,7 @@
 using BudgetBuddy.Domain.Models.Exceptions;
 
 using static BudgetBuddy.Domain.Common.Models.ModelConstants.Budget;
+using static BudgetBuddy.Domain.Common.Models.ModelConstants.Common;
 
 namespace BudgetBuddy.Domain.Models
 {
