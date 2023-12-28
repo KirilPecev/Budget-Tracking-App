@@ -1,4 +1,5 @@
 ﻿using BudgetBuddy.Domain.Common.Models;
+using BudgetBuddy.Domain.Models.Exceptions;
 
 using static BudgetBuddy.Domain.Common.Models.ModelConstants.Budget;
 
@@ -14,9 +15,9 @@ namespace BudgetBuddy.Domain.Models
 
         public DateTime? EndDate { get; }
 
-        public double TargetAmount { get; }
+        public decimal TargetAmount { get; }
 
-        public double? CurrentAmount { get; }
+        public decimal? CurrentAmount { get; }
 
         public bool IsActive { get; }
 
@@ -30,7 +31,7 @@ namespace BudgetBuddy.Domain.Models
             string userId,
             string name,
             DateTime startDate,
-            double targetAmount)
+            decimal targetAmount)
         {
             this.Validate(userId, name, startDate, targetAmount);
 
@@ -44,9 +45,24 @@ namespace BudgetBuddy.Domain.Models
             this.CreatedOn = DateTime.UtcNow;
         }
 
-        private void Validate(string userId, string name, DateTime startDate, double targetAmount)
+        private void Validate(string userId, string name, DateTime startDate, decimal targetAmount)
         {
-
+            this.ValidateUser(userId);
+            this.ValidateName(name);
+            this.ValidateStartDate(startDate);
+            this.ValidateTargetAmount(targetAmount);
         }
+
+        private void ValidateUser(string userId)
+            => Guard.AgainstEmptyString<InvalidBudgetException>(userId, nameof(this.UserId));
+
+        private void ValidateName(string name)
+            => Guard.ForStringLength<InvalidBudgetException>(name, MinNameLength, MaxNameLength, nameof(this.Name));
+
+        private void ValidateStartDate(DateTime startDate)
+             => Guard.AgainstEmptyDate<InvalidBudgetException>(startDate, nameof(this.StartDate));
+
+        private void ValidateTargetAmount(decimal targetAmount)
+            => Guard.AgainstOutOfRange<InvalidBudgetException>(targetAmount, Zero, TargetAmountMaxValue, nameof(this.TargetAmount));
     }
 }

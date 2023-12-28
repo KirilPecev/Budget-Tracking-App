@@ -16,6 +16,7 @@
             public const int MinNameLength = 1;
             public const int MaxNameLength = 100;
             public const int Zero = 0;
+            public const decimal TargetAmountMaxValue = decimal.MaxValue;
         }
     }
 }
