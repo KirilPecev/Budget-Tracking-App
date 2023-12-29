@@ -26,6 +26,8 @@ namespace BudgetBuddy.Domain.Models
 
         public string? Description { get; }
 
+        public ICollection<ExpenseAttachments> ExpenseAttachments { get; set; }
+
         internal Expenses(
             Budgets budget,
             decimal amount,
@@ -42,6 +44,7 @@ namespace BudgetBuddy.Domain.Models
             this.TransactionDateTime = transactionDateTime;
             this.Type = type;
             this.Description = description;
+            this.ExpenseAttachments = new HashSet<ExpenseAttachments>();
         }
 
         // This ctor is used for scaffolding to avoid error:
@@ -56,6 +59,7 @@ namespace BudgetBuddy.Domain.Models
             this.Amount = amount;
             this.TransactionDateTime = transactionDateTime;
             this.Description = description;
+            this.ExpenseAttachments = new HashSet<ExpenseAttachments>();
         }
 
         private void Validate(decimal amount, Currencies currency, DateTime transactionDateTime, ExpenseTypes type)

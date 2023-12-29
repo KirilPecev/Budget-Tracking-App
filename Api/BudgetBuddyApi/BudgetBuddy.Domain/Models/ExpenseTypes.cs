@@ -15,8 +15,8 @@ namespace BudgetBuddy.Domain.Models
         {
             this.Validate(name, description);
 
-            Name = name;
-            Description = description;
+            this.Name = name;
+            this.Description = description;
         }
 
         private void Validate(string name, string description)

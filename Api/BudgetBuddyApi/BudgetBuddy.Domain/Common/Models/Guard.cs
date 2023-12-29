@@ -72,6 +72,18 @@
             ThrowException<TException>($"{name} cannot be null or empty.");
         }
 
+        public static void ForValidUrl<TException>(string url, string name = DefaultName)
+            where TException : BaseDomainException, new()
+        {
+            if (url.Length <= ModelConstants.Common.MaxUrlLength &&
+                Uri.IsWellFormedUriString(url, UriKind.Absolute))
+            {
+                return;
+            }
+
+            ThrowException<TException>($"{name} must be a valid URL.");
+        }
+
         private static void ThrowException<TException>(string message) where TException : BaseDomainException, new()
             => throw new TException { Message = message };
     }
