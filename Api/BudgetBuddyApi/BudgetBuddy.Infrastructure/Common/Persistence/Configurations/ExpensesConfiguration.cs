@@ -37,7 +37,7 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence.Configurations
 
             builder
                 .HasOne(b => b.Type)
-                .WithMany()
+                .WithMany(b => b.Expenses)
                 .HasForeignKey("ExpenseTypeId")
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
@@ -48,8 +48,13 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence.Configurations
                 .IsRequired(false);
 
             builder
-                .HasMany(b => b.ExpenseAttachments)
+                .HasMany(b => b.Attachments)
                 .WithOne(b => b.Expense);
+
+            builder
+                .HasOne(b => b.Location)
+                .WithMany(b => b.Expenses)
+                .HasForeignKey("ExpenseLocationId");
         }
     }
 }

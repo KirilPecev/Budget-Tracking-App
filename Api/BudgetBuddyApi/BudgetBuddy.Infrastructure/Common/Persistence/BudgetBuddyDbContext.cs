@@ -20,6 +20,8 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence
 
         public DbSet<ExpenseAttachments> ExpenseAttachments { get; set; } = default!;
 
+        public DbSet<ExpenseLocations> ExpenseLocations { get; set; } = default!;
+
         public DbSet<Currencies> Currencies { get; set; } = default!;
 
         public DbSet<ExchangeRates> ExchangeRates { get; set; } = default!;

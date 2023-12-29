@@ -22,11 +22,13 @@ namespace BudgetBuddy.Domain.Models
 
         public DateTime TransactionDateTime { get; }
 
-        public ExpenseTypes Type { get; set; } = default!;
+        public ExpenseTypes Type { get; } = default!;
 
         public string? Description { get; }
 
-        public ICollection<ExpenseAttachments> ExpenseAttachments { get; set; }
+        public ExpenseLocations Location { get; } = default!;
+
+        public ICollection<ExpenseAttachments> Attachments { get; }
 
         internal Expenses(
             Budgets budget,
@@ -34,6 +36,7 @@ namespace BudgetBuddy.Domain.Models
             Currencies currency,
             DateTime transactionDateTime,
             ExpenseTypes type,
+            ExpenseLocations location,
             string? description = default)
         {
             this.Validate(amount, currency, transactionDateTime, type);
@@ -44,7 +47,8 @@ namespace BudgetBuddy.Domain.Models
             this.TransactionDateTime = transactionDateTime;
             this.Type = type;
             this.Description = description;
-            this.ExpenseAttachments = new HashSet<ExpenseAttachments>();
+            this.Location = location;
+            this.Attachments = new HashSet<ExpenseAttachments>();
         }
 
         // This ctor is used for scaffolding to avoid error:
@@ -59,7 +63,7 @@ namespace BudgetBuddy.Domain.Models
             this.Amount = amount;
             this.TransactionDateTime = transactionDateTime;
             this.Description = description;
-            this.ExpenseAttachments = new HashSet<ExpenseAttachments>();
+            this.Attachments = new HashSet<ExpenseAttachments>();
         }
 
         private void Validate(decimal amount, Currencies currency, DateTime transactionDateTime, ExpenseTypes type)

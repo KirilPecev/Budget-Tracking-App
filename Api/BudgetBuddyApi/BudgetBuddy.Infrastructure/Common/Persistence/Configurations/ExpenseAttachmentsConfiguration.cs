@@ -25,8 +25,9 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence.Configurations
                 .HasMaxLength(MaxDescriptionLength)
                 .IsRequired();
 
-            builder.HasOne(b => b.Expense)
-                .WithMany(b => b.ExpenseAttachments);
+            builder
+                .HasOne(b => b.Expense)
+                .WithMany(b => b.Attachments);
         }
     }
 }

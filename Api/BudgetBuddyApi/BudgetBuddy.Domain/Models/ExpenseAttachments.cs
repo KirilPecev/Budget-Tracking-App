@@ -7,7 +7,7 @@ namespace BudgetBuddy.Domain.Models
 {
     public class ExpenseAttachments : Entity<int>
     {
-        public Expenses Expense { get; set; } = default!;
+        public Expenses Expense { get; } = default!;
 
         public string BlobUrl { get; }
 

@@ -23,7 +23,7 @@ namespace BudgetBuddy.Domain.Models
 
         public decimal? CurrentAmount { get; }
 
-        public Currencies Currency { get; set; } = default!;
+        public Currencies Currency { get; } = default!;
 
         public bool IsActive { get; }
 
@@ -33,7 +33,7 @@ namespace BudgetBuddy.Domain.Models
 
         public DateTime? LastUpdated { get; }
 
-        public ICollection<Expenses> Expenses { get; set; }
+        public ICollection<Expenses> Expenses { get; }
 
         internal Budgets(
             string userId,

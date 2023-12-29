@@ -11,12 +11,15 @@ namespace BudgetBuddy.Domain.Models
 
         public string Description { get; }
 
+        public ICollection<Expenses> Expenses { get; }
+
         internal ExpenseTypes(string name, string description)
         {
             this.Validate(name, description);
 
             this.Name = name;
             this.Description = description;
+            this.Expenses = new HashSet<Expenses>();
         }
 
         private void Validate(string name, string description)
