@@ -28,6 +28,10 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence
 
         public DbSet<ExchangeRates> ExchangeRates { get; set; } = default!;
 
+        public DbSet<Incomes> Incomes { get; set; } = default!;
+
+        public DbSet<IncomeTypes> IncomeTypes { get; set; } = default!;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

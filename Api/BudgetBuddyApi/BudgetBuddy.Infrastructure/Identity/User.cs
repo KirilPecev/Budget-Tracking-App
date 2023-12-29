@@ -24,6 +24,7 @@ namespace BudgetBuddy.Infrastructure.Identity
             this.TimeFormat = "HH:mm";
             this.Budgets = new HashSet<Budgets>();
             this.SharedBudgets = new HashSet<BudgetSharing>();
+            this.Incomes = new HashSet<Incomes>();
         }
 
         public new string Email { get; }
@@ -45,5 +46,7 @@ namespace BudgetBuddy.Infrastructure.Identity
         public ICollection<Budgets> Budgets { get; }
 
         public ICollection<BudgetSharing> SharedBudgets { get; }
+
+        public ICollection<Incomes> Incomes { get; }
     }
 }

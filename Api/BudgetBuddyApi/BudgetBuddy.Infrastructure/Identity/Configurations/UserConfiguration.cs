@@ -53,6 +53,12 @@ namespace BudgetBuddy.Infrastructure.Identity.Configurations
                .WithOne()
                .HasForeignKey(b => b.ReceiverId)
                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .HasMany(u => u.Incomes)
+                .WithOne()
+                .HasForeignKey(b => b.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

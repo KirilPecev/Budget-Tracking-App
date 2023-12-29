@@ -48,5 +48,16 @@
         {
             public const decimal MaxRateValue = decimal.MaxValue;
         }
+
+        public class Income
+        {
+            public const int MinNameLength = 3;
+            public const int MaxNameLength = 50;
+
+            public const decimal MaxAmountValue = decimal.MaxValue;
+
+            public const int MinDescriptionLength = 5;
+            public const int MaxDescriptionLength = 1000;
+        }
     }
 }
