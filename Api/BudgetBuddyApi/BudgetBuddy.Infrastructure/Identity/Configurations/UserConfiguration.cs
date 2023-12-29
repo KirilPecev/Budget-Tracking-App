@@ -47,6 +47,12 @@ namespace BudgetBuddy.Infrastructure.Identity.Configurations
                 .WithOne()
                 .HasForeignKey(b => b.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+               .HasMany(u => u.SharedBudgets)
+               .WithOne()
+               .HasForeignKey(b => b.ReceiverId)
+               .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

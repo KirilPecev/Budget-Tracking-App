@@ -65,6 +65,10 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence.Configurations
             builder
                 .HasMany(b => b.Expenses)
                 .WithOne(b => b.Budget);
+
+            builder
+                .HasMany(b => b.Sharings)
+                .WithOne(b => b.Budget);
         }
     }
 }
