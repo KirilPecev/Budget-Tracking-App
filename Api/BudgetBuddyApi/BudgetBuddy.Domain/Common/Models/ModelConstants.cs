@@ -33,6 +33,10 @@
 
             public const int MinDescriptionLength = 5;
             public const int MaxDescriptionLength = 1000;
+
+            public const string AmountTypeValue = "V";
+            public const string AmountTypePercent = "P";
+            public const int AmountMaxLength = 1;
         }
 
         public class Currency

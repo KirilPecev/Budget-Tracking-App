@@ -16,6 +16,8 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence
 
         public DbSet<BudgetSharing> BudgetSharing { get; set; } = default!;
 
+        public DbSet<BudgetExpenseTypesLimits> BudgetExpenseTypesLimits { get; set; } = default!;
+
         public DbSet<Expenses> Expenses { get; set; } = default!;
 
         public DbSet<ExpenseTypes> ExpenseTypes { get; set; } = default!;

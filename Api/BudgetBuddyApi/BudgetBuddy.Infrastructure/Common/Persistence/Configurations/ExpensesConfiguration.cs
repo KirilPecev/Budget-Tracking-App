@@ -49,12 +49,14 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence.Configurations
 
             builder
                 .HasMany(b => b.Attachments)
-                .WithOne(b => b.Expense);
+                .WithOne(b => b.Expense)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasOne(b => b.Location)
                 .WithMany(b => b.Expenses)
-                .HasForeignKey("ExpenseLocationId");
+                .HasForeignKey("ExpenseLocationId")
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

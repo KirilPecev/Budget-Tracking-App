@@ -36,7 +36,6 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence.Configurations
                 .WithMany(b => b.Incomes)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
-
         }
     }
 }

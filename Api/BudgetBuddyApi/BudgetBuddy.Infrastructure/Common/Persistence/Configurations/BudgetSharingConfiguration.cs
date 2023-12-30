@@ -22,7 +22,8 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence.Configurations
 
             builder
                 .HasOne(b => b.Budget)
-                .WithMany(b => b.Sharings);
+                .WithMany(b => b.Sharings)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

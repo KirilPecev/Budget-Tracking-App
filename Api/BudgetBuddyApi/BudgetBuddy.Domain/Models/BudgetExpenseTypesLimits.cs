@@ -6,14 +6,17 @@ using static BudgetBuddy.Domain.Common.Models.ModelConstants.Expense;
 
 namespace BudgetBuddy.Domain.Models
 {
-    public class ExpenseTypes
+    public class BudgetExpenseTypesLimits : Entity<int>
     {
+        private static readonly IEnumerable<ExpenseTypes> AllowedTypes
+           = new ExpenseTypesData().GetData().Cast<ExpenseTypes>();
+
         private static readonly IEnumerable<Currencies> AllowedCurrencies
            = new CurrenciesData().GetData().Cast<Currencies>();
 
-        public string Name { get; }
+        public Budgets Budget { get; } = default!;
 
-        public string Description { get; }
+        public ExpenseTypes Type { get; } = default!;
 
         public decimal Amount { get; }
 
@@ -21,61 +24,39 @@ namespace BudgetBuddy.Domain.Models
 
         public string AmountType { get; }
 
-        public ICollection<Expenses> Expenses { get; }
-
-        public ICollection<BudgetExpenseTypesLimits> Limits { get; }
-
-        internal ExpenseTypes(
-            string name,
-            string description,
+        internal BudgetExpenseTypesLimits(
+            Budgets budget,
+            ExpenseTypes type,
             decimal amount,
-            Currencies? currency,
+            Currencies currency,
             string amountType)
         {
-            this.Validate(name, description, amount, currency, amountType);
+            this.Validate(type, amount, currency, amountType);
 
-            this.Name = name;
-            this.Description = description;
+            this.Budget = budget;
+            this.Type = type;
             this.Amount = amount;
             this.Currency = currency;
             this.AmountType = amountType;
-            this.Expenses = new HashSet<Expenses>();
-            this.Limits = new HashSet<BudgetExpenseTypesLimits>();
         }
 
-        private ExpenseTypes(
-            string name,
-            string description,
+        private BudgetExpenseTypesLimits(
             decimal amount,
             string amountType)
         {
-            this.Name = name;
-            this.Description = description;
             this.Amount = amount;
             this.AmountType = amountType;
-            this.Expenses = new HashSet<Expenses>();
-            this.Limits = new HashSet<BudgetExpenseTypesLimits>();
         }
 
-        private void Validate(string name, string description, decimal amount, Currencies currency, string amountType)
+        private void Validate(ExpenseTypes type, decimal amount, Currencies currency, string amountType)
         {
-            Guard.ForStringLength<InvalidExpenseException>(
-               name,
-               MinNameLength,
-               MaxNameLength,
-               nameof(this.Name));
-
-            Guard.ForStringLength<InvalidExpenseException>(
-                description,
-                MinDescriptionLength,
-                MaxDescriptionLength,
-                nameof(this.Description));
+            this.ValidateExpenseType(type);
 
             Guard.AgainstOutOfRange<InvalidExpenseException>(
-               amount,
-               Zero,
-               MaxAmountValue,
-               nameof(this.Amount));
+              amount,
+              Zero,
+              MaxAmountValue,
+              nameof(this.Amount));
 
             if (amountType != AmountTypeValue
                || amountType != AmountTypePercent)
@@ -87,6 +68,17 @@ namespace BudgetBuddy.Domain.Models
             {
                 this.ValidateCurrency(currency);
             }
+        }
+
+        private void ValidateExpenseType(ExpenseTypes expenseType)
+        {
+            string? name = expenseType?.Name;
+
+            if (AllowedTypes.Any(c => c.Name == name)) return;
+
+            string allowedNames = string.Join(", ", AllowedTypes.Select(c => $"'{c.Name}'"));
+
+            throw new InvalidExpenseException($"'{name}' is not a valid type. Allowed values are: {allowedNames}.");
         }
 
         private void ValidateCurrency(Currencies currency)

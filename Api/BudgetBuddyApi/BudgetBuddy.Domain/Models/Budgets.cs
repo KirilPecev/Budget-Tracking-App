@@ -37,6 +37,8 @@ namespace BudgetBuddy.Domain.Models
 
         public ICollection<BudgetSharing> Sharings { get; }
 
+        public ICollection<BudgetExpenseTypesLimits> Limits { get; }
+
         internal Budgets(
             string userId,
             string name,
@@ -57,6 +59,7 @@ namespace BudgetBuddy.Domain.Models
             this.Currency = currency;
             this.Expenses = new HashSet<Expenses>();
             this.Sharings = new HashSet<BudgetSharing>();
+            this.Limits = new HashSet<BudgetExpenseTypesLimits>();
         }
 
         // This ctor is used for scaffolding to avoid error:
@@ -79,6 +82,7 @@ namespace BudgetBuddy.Domain.Models
             this.CreatedOn = DateTime.UtcNow;
             this.Expenses = new HashSet<Expenses>();
             this.Sharings = new HashSet<BudgetSharing>();
+            this.Limits = new HashSet<BudgetExpenseTypesLimits>();
         }
 
         private void Validate(string userId, string name, DateTime startDate, decimal targetAmount, Currencies currency)

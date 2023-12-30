@@ -64,11 +64,18 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence.Configurations
 
             builder
                 .HasMany(b => b.Expenses)
-                .WithOne(b => b.Budget);
+                .WithOne(b => b.Budget)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasMany(b => b.Sharings)
-                .WithOne(b => b.Budget);
+                .WithOne(b => b.Budget)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+               .HasMany(b => b.Limits)
+               .WithOne(b => b.Budget)
+               .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

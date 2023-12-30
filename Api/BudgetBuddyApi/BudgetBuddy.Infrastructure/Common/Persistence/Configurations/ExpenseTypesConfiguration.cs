@@ -12,7 +12,7 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence.Configurations
         public void Configure(EntityTypeBuilder<ExpenseTypes> builder)
         {
             builder
-                .HasKey(b => b.Id);
+                .HasKey(b => b.Name);
 
             builder
                 .HasIndex(c => c.Name)
@@ -29,8 +29,32 @@ namespace BudgetBuddy.Infrastructure.Common.Persistence.Configurations
                 .IsRequired();
 
             builder
+                .Property(b => b.Amount)
+                .IsRequired();
+
+            builder
+                .HasOne(b => b.Currency)
+                .WithMany()
+                .HasForeignKey("CurrencyCode")
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Property(b => b.AmountType)
+                .HasMaxLength(AmountMaxLength)
+                .IsRequired();
+
+            builder.ToTable(t => t.HasCheckConstraint("CK_ExpenseTypes_AmountType", $"AmountType in ('{AmountTypeValue}', '{AmountTypePercent}')"));
+
+            builder
                 .HasMany(b => b.Expenses)
-                .WithOne(b => b.Type);
+                .WithOne(b => b.Type)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+               .HasMany(b => b.Limits)
+               .WithOne(b => b.Type)
+               .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
