@@ -1,4 +1,5 @@
-﻿using BudgetBuddy.Domain.Common.Models;
+﻿using BudgetBuddy.Domain.Common;
+using BudgetBuddy.Domain.Common.Models;
 using BudgetBuddy.Domain.Models.Exceptions;
 
 using static BudgetBuddy.Domain.Common.Models.ModelConstants.Budget;
@@ -6,7 +7,7 @@ using static BudgetBuddy.Domain.Common.Models.ModelConstants.Common;
 
 namespace BudgetBuddy.Domain.Models
 {
-    public class Budgets : Entity<int>
+    public class Budgets : Entity<int>, IAuditable
     {
         private static readonly IEnumerable<Currencies> AllowedCurrencies
            = new CurrenciesData().GetData().Cast<Currencies>();

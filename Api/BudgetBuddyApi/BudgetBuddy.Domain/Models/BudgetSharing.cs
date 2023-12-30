@@ -1,9 +1,10 @@
-﻿using BudgetBuddy.Domain.Common.Models;
+﻿using BudgetBuddy.Domain.Common;
+using BudgetBuddy.Domain.Common.Models;
 using BudgetBuddy.Domain.Models.Exceptions;
 
 namespace BudgetBuddy.Domain.Models
 {
-    public class BudgetSharing : Entity<int>
+    public class BudgetSharing : Entity<int>, IAuditable
     {
         public Budgets Budget { get; } = default!;
 

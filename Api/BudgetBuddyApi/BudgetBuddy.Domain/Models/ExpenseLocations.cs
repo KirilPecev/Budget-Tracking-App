@@ -1,8 +1,9 @@
-﻿using BudgetBuddy.Domain.Common.Models;
+﻿using BudgetBuddy.Domain.Common;
+using BudgetBuddy.Domain.Common.Models;
 
 namespace BudgetBuddy.Domain.Models
 {
-    public class ExpenseLocations : Entity<int>
+    public class ExpenseLocations : Entity<int>, IAuditable
     {
         public double Latitude { get; }
 

@@ -1,11 +1,12 @@
-﻿using BudgetBuddy.Domain.Common.Models;
+﻿using BudgetBuddy.Domain.Common;
+using BudgetBuddy.Domain.Common.Models;
 using BudgetBuddy.Domain.Models.Exceptions;
 
 using static BudgetBuddy.Domain.Common.Models.ModelConstants.Expense;
 
 namespace BudgetBuddy.Domain.Models
 {
-    public class ExpenseAttachments : Entity<int>
+    public class ExpenseAttachments : Entity<int>, IAuditable
     {
         public Expenses Expense { get; } = default!;
 
