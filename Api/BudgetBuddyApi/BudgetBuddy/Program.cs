@@ -1,8 +1,11 @@
+using BudgetBuddy.Domain;
 using BudgetBuddy.Infrastructure;
+using BudgetBuddy.Web;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDomain();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddControllers();
 
@@ -24,5 +27,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.Initialize();
 
 app.Run();

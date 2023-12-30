@@ -2,6 +2,7 @@
 
 using BudgetBuddy.Application;
 using BudgetBuddy.Application.Common;
+using BudgetBuddy.Infrastructure.Common;
 using BudgetBuddy.Infrastructure.Common.Persistence;
 using BudgetBuddy.Infrastructure.Identity;
 
@@ -17,14 +18,15 @@ namespace BudgetBuddy.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
             => services
-                .AddDomain(configuration)
+                .AddDatabase(configuration)
                 .AddIdentity(configuration);
 
-        private static IServiceCollection AddDomain(this IServiceCollection services, IConfiguration configuration)
+        private static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
             => services
                 .AddDbContext<BudgetBuddyDbContext>(options => options
                     .UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly(typeof(BudgetBuddyDbContext).Assembly.FullName)));
+                    b => b.MigrationsAssembly(typeof(BudgetBuddyDbContext).Assembly.FullName)))
+                .AddTransient<IInitializer, BudgetBuddyDbInitializer>();
 
         private static IServiceCollection AddIdentity(this IServiceCollection services, IConfiguration configuration)
         {

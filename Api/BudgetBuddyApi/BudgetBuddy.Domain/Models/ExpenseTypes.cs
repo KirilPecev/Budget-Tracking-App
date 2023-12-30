@@ -78,7 +78,7 @@ namespace BudgetBuddy.Domain.Models
                nameof(this.Amount));
 
             if (amountType != AmountTypeValue
-               || amountType != AmountTypePercent)
+               && amountType != AmountTypePercent)
             {
                 throw new InvalidExpenseException($"Invalid {nameof(this.AmountType)} should be value: {AmountTypeValue} or percent: {AmountTypePercent}");
             }

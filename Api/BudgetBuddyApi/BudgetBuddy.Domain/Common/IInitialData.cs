@@ -1,6 +1,6 @@
 ﻿namespace BudgetBuddy.Domain.Common
 {
-    internal interface IInitialData
+    public interface IInitialData
     {
         Type EntityType { get; }
 
